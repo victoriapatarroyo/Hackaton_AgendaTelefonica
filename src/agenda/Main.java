@@ -30,9 +30,9 @@ public class Main {
                     System.out.println("Ingresa el apellido del usuario: ");
                     String apellido = scanner.nextLine();
                     System.out.println("Ingresa el número telefónico: ");
-                    int telefono = scanner.nextInt();
+                    String telefono = scanner.nextLine();
 
-                    Contacto c = new Contacto(nombre, apellido, telefono);
+                    //Contacto c = new Contacto(nombre, apellido, telefono);
                     //agregarContacto(Contacto c);
                     break;
                 /*case 2:
@@ -57,7 +57,7 @@ public class Main {
                     espacioLibre();
                     break;*/
                 case 9:
-                    System.out.println("Ya te traigo tu orden");
+                    System.out.println("Saliendo de la agenda...");
                     break;
                 default:
                     System.out.println("Opción inválida");

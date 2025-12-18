@@ -5,18 +5,6 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
-        // ===== MENÚ EN CONSOLA =====
-        System.out.println("\n------------------------------------------");
-        System.out.println("Mi Agenda Telefónica");
-        System.out.println("Opciones:");
-        System.out.println("1. Añadir contacto");
-        System.out.println("2. Verificar contacto");
-        System.out.println("3. Listar contactos");
-        System.out.println("4. Buscar contacto");
-        System.out.println("9. Salir");
-        System.out.println("\nUse la ventana gráfica para seleccionar la opción.");
-        System.out.println("------------------------------------------");
-
         // ===== TAMAÑO DE LA AGENDA =====
         int tamano = 10;
 

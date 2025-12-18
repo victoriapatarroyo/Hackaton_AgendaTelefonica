@@ -1,6 +1,8 @@
 package agenda;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AgendaGUI extends JFrame
 {
@@ -63,14 +65,18 @@ public class AgendaGUI extends JFrame
 
 
         JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBounds(75, 160, 100, 30);
+        btnEliminar.setBounds(20, 160, 100, 30);
         panel.add(btnEliminar);
 
         JButton btnModificar = new JButton("Modificar");
-        btnModificar.setBounds(185, 160, 100, 30);
+        btnModificar.setBounds(130, 160, 100, 30);
         panel.add(btnModificar);
 
-        // Area de salida
+        JButton btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.setBounds(240, 160, 100, 30);
+        panel.add(btnLimpiar);
+
+
         areaSalida = new JTextArea();
         areaSalida.setEditable(false);
         JScrollPane scroll = new JScrollPane(areaSalida);
@@ -88,7 +94,8 @@ public class AgendaGUI extends JFrame
                     txtTelefono.getText()
             );
 
-            if(miAgenda.agendaLlena() == true) {
+            if(miAgenda.agendaLlena() == true)
+            {
                 areaSalida.setText("La agenda está llena. No puedes agregar más contactos.");
                 return;
             }
@@ -133,6 +140,14 @@ public class AgendaGUI extends JFrame
             String nuevoTelefono = txtTelefono.getText();
             miAgenda.modificarTelefono(nombre, apellido, nuevoTelefono);
             areaSalida.setText("Operación realizada. Revisa la consola.\n");
+        });
+
+        btnLimpiar.addActionListener(e ->
+        {
+            txtNombre.setText("");
+            txtApellido.setText("");
+            txtTelefono.setText("");
+            System.out.println("--- CAMPOS LIMPIADOS ---");
         });
     }
 }

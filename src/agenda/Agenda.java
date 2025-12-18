@@ -1,6 +1,8 @@
 package agenda;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class Agenda {
     private Map<String, String> agenda = new HashMap<>();
@@ -11,8 +13,8 @@ public class Agenda {
     }
 
     public void agregarContacto(Contacto c) {
-        if (agenda.size() >= tamanoMaximo) {
-            System.out.println("No tienes espacio en tu agenda");
+        if(agendaLlena() == true) {
+            System.out.println("El tamaño de la agenda está llena");
             return;
         }
 
@@ -21,15 +23,12 @@ public class Agenda {
             return;
         }
 
-        // ^ indica inicio, [0-9]+ indica uno o más dígitos, $ indica fin
-        boolean esNumerico = c.getTelefono().matches("^[0-9]+$");
-
-        if(esNumerico == false) {
-            System.out.println("El número telefónico solo debe contener números");
+        if(!verificarTelefono(c.getTelefono())) {
+            System.out.println("El formato del teléfono no es numérico");
             return;
         }
 
-        String nombreCompleto = c.nombre + " " + c.apellido;
+        String nombreCompleto = (c.nombre + " " + c.apellido).toUpperCase();
 
         if (buscarContacto(nombreCompleto)) {
             System.out.println("El contacto ya existe.");
@@ -37,6 +36,8 @@ public class Agenda {
             agenda.put(nombreCompleto, c.getTelefono());
             System.out.println("Contacto agregado: " + nombreCompleto);
             listarContactos();
+            int tamanoAgenda = espacioLibre();
+            System.out.println("Espacio disponible en agenda: " + tamanoAgenda);
         }
     }
 
@@ -57,8 +58,10 @@ public class Agenda {
         if (agenda.isEmpty()) {
             System.out.println("La agenda está vacía.");
         } else {
-            System.out.println("\n-----AGENDA-------");
-            System.out.println(agenda);
+            // Crear un TreeMap a partir del HashMap
+            Map<String, String> agendaOrdenada = new TreeMap<>(agenda);
+            System.out.println("\n----- MI AGENDA-------");
+            System.out.println(agendaOrdenada);
         }
     }
 
@@ -84,17 +87,37 @@ public class Agenda {
     public void modificarTelefono(String nombre, String apellido, String nuevoTelefono) {
         String contactoAgenda = (nombre + " " + apellido).toUpperCase();
 
-        if (buscarContacto(contactoAgenda) == true) {
+        if(!verificarTelefono(nuevoTelefono)) {
+            System.out.println("El formato del teléfono no es numérico");
+            return;
+        }
 
+        if (buscarContacto(contactoAgenda) == true) {
             agenda.replace(contactoAgenda, nuevoTelefono);
             System.out.println("Teléfono modificado.");
             System.out.println("Nombre: " + contactoAgenda);
             System.out.println("Nuevo teléfono: " + nuevoTelefono);
             System.out.println(agenda);
-
         } else {
             System.out.println("El contacto no se encuentra en tu lista.");
         }
     }
 
+    public boolean verificarTelefono(String nuevoTelefono) {
+        boolean esNumerico = nuevoTelefono.matches("^[0-9]+$");
+        return esNumerico;
+    }
+
+    public boolean agendaLlena() {
+        if (agenda.size() >= tamanoMaximo) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int espacioLibre() {
+        int tamanoDisponible = tamanoMaximo - agenda.size();
+        return tamanoDisponible;
+    }
 }

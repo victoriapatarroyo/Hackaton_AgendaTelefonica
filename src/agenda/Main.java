@@ -16,9 +16,9 @@ public class Main {
             System.out.println("2. Verificar contacto");
             System.out.println("3. Listar contactos");
             System.out.println("4. Buscar contacto");
-            /*System.out.println("5. Eliminar contacto");
+            System.out.println("5. Eliminar contacto");
             System.out.println("6. Modificar teléfono");
-            System.out.println("7. Espacio lleno en agenda");
+            /*System.out.println("7. Espacio lleno en agenda");
             System.out.println("8. Espacio libre en agenda");*/
             System.out.println("9. Salir");
             System.out.println("Selecciona tu opción: ");
@@ -59,13 +59,26 @@ public class Main {
                     String nombreCompleto = nombre1 + " " + apellido1;
                     miAgenda.buscarContacto(nombreCompleto);
                     break;
-                /*case 5:
-                    eliminarContacto(Contacto c);
+                case 5:
+                    System.out.println("Ingresa el nombre del contacto: ");
+                    String nombre4 = scanner.nextLine();
+                    System.out.println("Ingresa el apellido del usuario: ");
+                    String apellido4 = scanner.nextLine();
+
+                    Contacto contactoEliminar = new Contacto(nombre4, apellido4, "0");
+                    miAgenda.eliminarContacto(contactoEliminar);
                     break;
                 case 6:
-                    modificarTelefono(nombre, apellido, nuevoTelefono);
+                    System.out.println("Ingresa el nombre del contacto: ");
+                    String nombre3 = scanner.nextLine();
+                    System.out.println("Ingresa el apellido del usuario: ");
+                    String apellido3 = scanner.nextLine();
+                    System.out.println("Ingresa el número telefónico: ");
+                    String nuevoTelefono = scanner.nextLine();
+
+                    miAgenda.modificarTelefono(nombre3, apellido3, nuevoTelefono);
                     break;
-                case 7:
+                /*case 7:
                     agendaLlena();
                     break;
                 case 8:

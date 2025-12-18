@@ -21,6 +21,14 @@ public class Agenda {
             return;
         }
 
+        // ^ indica inicio, [0-9]+ indica uno o más dígitos, $ indica fin
+        boolean esNumerico = c.getTelefono().matches("^[0-9]+$");
+
+        if(esNumerico == false) {
+            System.out.println("El número telefónico solo debe contener números");
+            return;
+        }
+
         String nombreCompleto = c.nombre + " " + c.apellido;
 
         if (buscarContacto(nombreCompleto)) {
@@ -54,5 +62,39 @@ public class Agenda {
         }
     }
 
+    public void eliminarContacto(Contacto c) {
+
+        String contactoAgenda = (c.getNombre() + " " + c.getApellido()).toUpperCase();
+
+        if (buscarContacto(contactoAgenda) == true) {
+
+            String telefonoEliminado = agenda.get(contactoAgenda);
+            agenda.remove(contactoAgenda);
+
+            System.out.println("Contacto eliminado.");
+            System.out.println("Nombre: " + contactoAgenda);
+            System.out.println("Teléfono: " + telefonoEliminado);
+            System.out.println(agenda);
+
+        } else {
+            System.out.println("El contacto no se encuentra en tu lista.");
+        }
+    }
+
+    public void modificarTelefono(String nombre, String apellido, String nuevoTelefono) {
+        String contactoAgenda = (nombre + " " + apellido).toUpperCase();
+
+        if (buscarContacto(contactoAgenda) == true) {
+
+            agenda.replace(contactoAgenda, nuevoTelefono);
+            System.out.println("Teléfono modificado.");
+            System.out.println("Nombre: " + contactoAgenda);
+            System.out.println("Nuevo teléfono: " + nuevoTelefono);
+            System.out.println(agenda);
+
+        } else {
+            System.out.println("El contacto no se encuentra en tu lista.");
+        }
+    }
 
 }

@@ -12,7 +12,7 @@ public class Contacto {
 
     private Map<String, String> agenda = new HashMap<>();
 
-    private int tamanoMaximo;
+    private int tamanoMaximo = 10;
 
 
     public Contacto(String nombre, String apellido, String telefono) {
@@ -63,15 +63,16 @@ public class Contacto {
 
         String contactoAgenda = (c.nombre + " " + c.apellido).toUpperCase();
 
-        if (agenda.containsKey(contactoAgenda)) {
+        if (buscarContacto(contactoAgenda) == true) {
             System.out.println("El contacto ya existe.");
-            return;
+        } else {
+            agenda.put(contactoAgenda, telefono);
+            System.out.println("Contacto Agregado.");
+            System.out.println(agenda);
         }
-
-        agenda.put(contactoAgenda, telefono);
-        System.out.println("Contacto Agregado.");
-        System.out.println(agenda);
     }
 
-
+    public boolean buscarContacto (String contactoAgenda) {
+        return agenda.containsKey(contactoAgenda);
+    }
 }

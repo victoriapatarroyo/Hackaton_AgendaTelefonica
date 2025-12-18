@@ -2,16 +2,27 @@ package agenda;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
+//Clase Agenda que maneja la información de los contactos telefónicos ingresados
+//a través de los objetos instaciados en la clase Contacto
+//Atributo tamanoMaximo: número del tamaño de la agenda
 public class Agenda {
     private Map<String, String> agenda = new HashMap<>();
     private int tamanoMaximo = 10;
 
+    //Clase constructora
     public Agenda(int tamanoMaximo) {
         this.tamanoMaximo = tamanoMaximo;
     }
 
+    //Metodo agregarContacto
+    //Parametro: Objeto de tipo Contacto
+    //Ingresa un contacto a la agenda verificando:
+    // 1. Si el contacto ya existe
+    // 2. La información de nombre, apellido y teléfono no puede estar vacía
+    // 3. La información del teléfono debe ser numérica
+    // 4. Verifica el tamaño disponible de la agenda
+    // 5. Visualiza el tamaño disponible de la agenda
     public void agregarContacto(Contacto c) {
         if(agendaLlena() == true) {
             System.out.println("El tamaño de la agenda está llena");
@@ -41,10 +52,16 @@ public class Agenda {
         }
     }
 
+    //Metodo buscarContacto
+    //Parametro: String con el nombre y apellido del contacto
+    //Establece si el contacto enviado como parámetro ya está en la agenda
     public boolean buscarContacto(String nombreCompleto) {
         return agenda.containsKey(nombreCompleto.toUpperCase());
     }
 
+    //Metodo existeContacto
+    //Parametro: Objeto de tipo Contacto
+    //Informa al usuario si el contacto enviado está o no en la agenda
     public void existeContacto(Contacto c) {
         String nombreBuscar = (c.getNombre() + " " + c.getApellido()).toUpperCase();
         if(buscarContacto(nombreBuscar) == true) {
@@ -54,6 +71,9 @@ public class Agenda {
         }
     }
 
+    //Metodo listarContactos
+    //Parametro: Vacío
+    //Lista la agenda de contactos en orden alfabético
     public void listarContactos() {
         if (agenda.isEmpty()) {
             System.out.println("La agenda está vacía.");
@@ -65,25 +85,29 @@ public class Agenda {
         }
     }
 
+    //Metodo eliminarContacto
+    //Parametro: Objeto de tipo Contacto
+    //Elimina un contacto de la agenda verificando si el contacto existe
     public void eliminarContacto(Contacto c) {
-
         String contactoAgenda = (c.getNombre() + " " + c.getApellido()).toUpperCase();
 
         if (buscarContacto(contactoAgenda) == true) {
-
-            String telefonoEliminado = agenda.get(contactoAgenda);
             agenda.remove(contactoAgenda);
-
             System.out.println("Contacto eliminado.");
             System.out.println("Nombre: " + contactoAgenda);
-            System.out.println("Teléfono: " + telefonoEliminado);
-            System.out.println(agenda);
-
+            listarContactos();
         } else {
             System.out.println("El contacto no se encuentra en tu lista.");
         }
     }
 
+    //Metodo modificarTelefono
+    //Parametros:
+    // 1. String con nombre del contacto
+    // 2. String con apellido del contacto
+    // 3. String con el nuevo teléfono del contacto
+    //Modifica el teléfono de un contacto verificando que este exista y el nuevo teléfono
+    //sea numérico
     public void modificarTelefono(String nombre, String apellido, String nuevoTelefono) {
         String contactoAgenda = (nombre + " " + apellido).toUpperCase();
 
@@ -97,17 +121,24 @@ public class Agenda {
             System.out.println("Teléfono modificado.");
             System.out.println("Nombre: " + contactoAgenda);
             System.out.println("Nuevo teléfono: " + nuevoTelefono);
-            System.out.println(agenda);
+            listarContactos();
         } else {
             System.out.println("El contacto no se encuentra en tu lista.");
         }
     }
 
+    //Metodo verificarTelefono
+    //Parametros:
+    // 1. String con el teléfono del contacto
+    //Establece si el formato de la cadena con el número de teléfono es numérico
     public boolean verificarTelefono(String nuevoTelefono) {
         boolean esNumerico = nuevoTelefono.matches("^[0-9]+$");
         return esNumerico;
     }
 
+    //Metodo agendaLlena
+    //Parametros: Vacío
+    //Establece si se ha llegado al tamaño máximo de la agenda
     public boolean agendaLlena() {
         if (agenda.size() >= tamanoMaximo) {
             return true;
@@ -116,6 +147,9 @@ public class Agenda {
         }
     }
 
+    //Metodo espacioLibre
+    //Parametros: Vacío
+    //Retorna el espacio disponible de la agenda comparado con su tamaño establecido
     public int espacioLibre() {
         int tamanoDisponible = tamanoMaximo - agenda.size();
         return tamanoDisponible;

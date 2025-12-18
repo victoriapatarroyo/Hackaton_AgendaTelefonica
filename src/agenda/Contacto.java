@@ -3,17 +3,11 @@ package agenda;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Contacto {
 
     String nombre;
     String apellido;
     String telefono;
-
-    private Map<String, String> agenda = new HashMap<>();
-
-    private int tamanoMaximo = 10;
-
 
     public Contacto(String nombre, String apellido, String telefono) {
         this.nombre = nombre;
@@ -43,10 +37,6 @@ public class Contacto {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public int TamanoMaximo() {
-        return tamanoMaximo;
     }
 
 }

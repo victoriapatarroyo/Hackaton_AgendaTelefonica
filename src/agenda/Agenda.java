@@ -39,6 +39,11 @@ public class Agenda {
             return;
         }
 
+        if(c.getTelefono().length() < 7) {
+            System.out.println("El número de dígitos del teléfono debe ser mayor a 7");
+            return;
+        }
+
         String nombreCompleto = (c.nombre + " " + c.apellido).toUpperCase();
 
         if (buscarContacto(nombreCompleto)) {
@@ -115,6 +120,7 @@ public class Agenda {
             System.out.println("El formato del teléfono no es numérico");
             return;
         }
+
 
         if (buscarContacto(contactoAgenda) == true) {
             agenda.replace(contactoAgenda, nuevoTelefono);
